@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
-import { FlightModule } from './flight/flight.module';
+
+import { MongooseModule } from '@nestjs/mongoose';
+import { FlightsModule } from './flights/flights.module';
 
 @Module({
-  imports: [FlightModule]
+  imports: [FlightsModule,MongooseModule.forRoot('mongodb://localhost/FlightNestApi')],
 })
 export class AppModule {}
