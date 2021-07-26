@@ -8,23 +8,25 @@ import { UpdateFlightDto } from './dto/update-flight.dto';
 @Injectable()
 export class FlightsService {
   constructor(@InjectModel(Flight.name) private flightModel: Model<FlightDocument>) {}
-  create(createFlightDto: CreateFlightDto) {
-    return new this.flightModel(createFlightDto).save();
+
+
+  async create(createFlightDto: CreateFlightDto): Promise<Flight> {
+    return await new this.flightModel(createFlightDto).save();
   }
 
-  findAll() {
-    return this.flightModel.find();
+  async findAll(): Promise<Flight[]> {
+    return await this.flightModel.find().exec();
   }
 
-  findOne(name:string) {
-    return this.flightModel.findOne({name});
+  async findOne(name:string): Promise<Flight> {
+    return await this.flightModel.findOne({name});
   }
 
-  update(name: string, updateFlightDto: UpdateFlightDto) {
-    return this.flightModel.updateOne({name},{$set:{...updateFlightDto}});
+  async update(name: string, updateFlightDto: UpdateFlightDto): Promise<any> {
+    return await this.flightModel.updateOne({name},{$set:{...updateFlightDto}});
   }
 
-  remove(name: string) {
-    return this.flightModel.deleteOne({name});
+  async remove(name: string): Promise<any> {
+    return await this.flightModel.deleteOne({name});
   }
 }
